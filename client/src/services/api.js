@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://personal-task-management.onrender.com';
+const API_URL = 'https://personal-task-management.onrender.com/';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -42,49 +42,18 @@ export const setAuthToken = (token) => {
   }
 };
 
-// Add error handling wrapper
-const apiCall = async (method, ...args) => {
-  try {
-    const response = await method(...args);
-    return response.data;
-  } catch (error) {
-    console.error('API call failed:', error);
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('No response received:', error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error setting up request:', error.message);
-    }
-    throw error;
-  }
-};
+export const register = (userData) => api.post('/users/register', userData);
+export const login = (credentials) => api.post('/users/login', credentials);
+export const getTasks = () => api.get('/tasks');
+export const createTask = (taskData) => api.post('/tasks', taskData);
+export const updateTask = (taskId, taskData) => api.put(`/tasks/${taskId}`, taskData);
+export const deleteTask = (taskId) => api.delete(`/tasks/${taskId}`).then(response => response.data);
 
-// Wrap all API calls with the error handling wrapper
-export const login = (credentials) => {
-  console.log('Attempting login with URL:', `${API_URL}/users/login`);
-  return apiCall(api.post, '/users/login', credentials);
-};
-export const register = (userData) => {
-  console.log('Attempting registration with URL:', `${API_URL}/users/register`);
-  return apiCall(api.post, '/users/register', userData);
-};
-export const getTasks = () => apiCall(api.get, '/tasks');
-export const createTask = (taskData) => apiCall(api.post, '/tasks', taskData);
-export const updateTask = (taskId, taskData) => apiCall(api.put, `/tasks/${taskId}`, taskData);
-export const deleteTask = (taskId) => apiCall(api.delete, `/tasks/${taskId}`);
+export const getUserProfile = () => api.get('/users/profile');
+export const updateUserProfile = (userData) => api.put('/users/profile', userData);
+export const changePassword = (passwordData) => api.post('/users/change-password', passwordData);
 
-export const getUserProfile = () => apiCall(api.get, '/users/profile');
-export const updateUserProfile = (userData) => apiCall(api.put, '/users/profile', userData);
-export const changePassword = (passwordData) => apiCall(api.post, '/users/change-password', passwordData);
-
-export const forgotPassword = (email) => apiCall(api.post, '/users/forgot-password', { email });
-export const resetPassword = (email, password) => apiCall(api.post, '/users/reset-password', { email, password });
+export const forgotPassword = (email) => api.post('/users/forgot-password', { email });
+export const resetPassword = (email, password) => api.post('/users/reset-password', { email, password });
 
 export default api;
