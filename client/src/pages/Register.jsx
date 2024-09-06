@@ -13,12 +13,15 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Attempting registration with:', { name, email, password });
       const response = await register({ name, email, password });
-      localStorage.setItem('token', response.data.token);
-      setAuthToken(response.data.token);
+      console.log('Registration response:', response);
+      localStorage.setItem('token', response.token);
+      setAuthToken(response.token);
       toast.success('Registration successful!');
       navigate('/dashboard');
     } catch (err) {
+      console.error('Registration error:', err);
       toast.error(err.response?.data?.msg || 'An error occurred during registration');
     }
   };

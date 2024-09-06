@@ -7,6 +7,7 @@ const crypto = require('crypto');
 // User registration
 exports.register = async (req, res) => {
   try {
+    console.log('Received registration request:', req.body);
     const { name, email, password } = req.body;
     let user = await User.findOne({ email });
     if (user) {
@@ -20,10 +21,11 @@ exports.register = async (req, res) => {
     const payload = { user: { id: user.id } };
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
       if (err) throw err;
+      console.log('Registration successful, sending response');
       res.status(200).json({ msg: 'User created successfully', token });
     });
   } catch (err) {
-    console.error(err.message);
+    console.error('Registration error:', err.message);
     res.status(500).send('Server error');
   }
 };

@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const API_URL = 'https://personal-task-management.onrender.com';
-const API_BASE_PATH = '/api'; // Add this line
 
 const api = axios.create({
-  baseURL: `${API_URL}${API_BASE_PATH}`,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -68,8 +67,14 @@ const apiCall = async (method, ...args) => {
 };
 
 // Wrap all API calls with the error handling wrapper
-export const login = (credentials) => apiCall(api.post, '/users/login', credentials);
-export const register = (userData) => apiCall(api.post, '/users/register', userData);
+export const login = (credentials) => {
+  console.log('Attempting login with URL:', `${API_URL}/users/login`);
+  return apiCall(api.post, '/users/login', credentials);
+};
+export const register = (userData) => {
+  console.log('Attempting registration with URL:', `${API_URL}/users/register`);
+  return apiCall(api.post, '/users/register', userData);
+};
 export const getTasks = () => apiCall(api.get, '/tasks');
 export const createTask = (taskData) => apiCall(api.post, '/tasks', taskData);
 export const updateTask = (taskId, taskData) => apiCall(api.put, `/tasks/${taskId}`, taskData);

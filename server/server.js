@@ -19,9 +19,16 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 // Routes
-app.use('/api/users', require('./routes/users'));
-app.use('/api/tasks', require('./routes/tasks'));
+app.use('/users', require('./routes/users')); // Remove '/api' prefix
+app.use('/tasks', require('./routes/tasks')); // Remove '/api' prefix
+
+// Add a catch-all route for debugging
+app.use('*', (req, res) => {
+  console.log('Received request for:', req.originalUrl);
+  res.status(404).json({ message: 'Route not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`API is accessible at: ${process.env.API_URL || `http://localhost:${PORT}`}`);
 });

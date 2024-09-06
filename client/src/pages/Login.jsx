@@ -12,12 +12,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Attempting login with:', { email, password });
       const response = await login({ email, password });
-      localStorage.setItem('token', response.data.token);
-      setAuthToken(response.data.token);
+      console.log('Login response:', response);
+      localStorage.setItem('token', response.token);
+      setAuthToken(response.token);
       toast.success('Login successful!');
       navigate('/dashboard');
     } catch (err) {
+      console.error('Login error:', err);
       toast.error(err.response?.data?.msg || 'An error occurred during login');
     }
   };
