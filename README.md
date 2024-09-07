@@ -45,8 +45,8 @@
    cp .env
    ```
    Edit the `.env` file with your configuration
-   MONGO_URL
-   JWT_SECRET
+   MONGO_URL 
+   JWT_SECRET 
    PORT
 
 5. Start the development server
