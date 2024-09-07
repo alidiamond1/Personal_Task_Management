@@ -23,7 +23,7 @@
 ### Prerequisites
 
 - Node.js (v14.0.0 or later)
-- pnpm (v6.0.0 or later)
+- pnpm (v9.9.0 or later)
 - MongoDB (v4.0 or later)
 
 ### Installation
