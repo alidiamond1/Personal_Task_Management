@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserProfile, updateUserProfile, changePassword } from '../services/api';
-import { User, Mail, Lock, Camera } from 'lucide-react';
+import { User, Mail, Lock } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -9,8 +10,6 @@ const Profile = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     fetchUserProfile();
@@ -19,42 +18,43 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await getUserProfile();
-      setUser(response.data);
-      setName(response.data.name);
-      setEmail(response.data.email);
+      setUser(response.data.user);
+      setName(response.data.user.name);
+      setEmail(response.data.user.email);
     } catch (error) {
-      setError('Failed to fetch user profile');
+      console.error('Error fetching user profile:', error);
+      toast.error('Failed to fetch user profile');
     }
   };
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
     try {
-      await updateUserProfile({ name, email });
-      setSuccess('Profile updated successfully');
+      const response = await updateUserProfile({ name, email });
+      console.log('Profile update response:', response);
+      setUser(response.data.user);
+      toast.success('Profile updated successfully');
     } catch (error) {
-      setError('Failed to update profile');
+      console.error('Error updating profile:', error);
+      toast.error(error.response?.data?.msg || 'Failed to update profile');
     }
   };
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
     if (newPassword !== confirmPassword) {
-      setError('New passwords do not match');
+      toast.error('New passwords do not match');
       return;
     }
     try {
       await changePassword({ currentPassword, newPassword });
-      setSuccess('Password changed successfully');
+      toast.success('Password changed successfully');
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
     } catch (error) {
-      setError('Failed to change password');
+      console.error('Error changing password:', error);
+      toast.error(error.response?.data?.msg || 'Failed to change password');
     }
   };
 
