@@ -37,7 +37,7 @@
 2. Install dependencies
    ```sh
    pnpm install
-   cd client && npm install
+   cd client && pnpm install
    ```
 
 3. Set up environment variables
