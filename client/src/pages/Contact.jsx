@@ -112,11 +112,11 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center mt-2">
                   <Phone className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                  <span className="text-gray-600">+1 (555) 123-4567</span>
+                  <span className="text-gray-600">+252 619 899 733</span>
                 </div>
                 <div className="flex items-center mt-2">
                   <MapPin className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
-                  <span className="text-gray-600">123 Task Street, Productivity City, 12345</span>
+                  <span className="text-gray-600">856 Dakada Street, Productivity City, 12345</span>
                 </div>
               </div>
             </div>
