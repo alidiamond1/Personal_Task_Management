@@ -78,10 +78,10 @@ exports.updateProfile = async (req, res) => {
     user.name = name || user.name;
     user.email = email || user.email;
     await user.save();
-    res.json(user);
+    res.json({ msg: 'Profile updated successfully', user });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    console.error('Error in updateProfile:', err.message);
+    res.status(500).json({ msg: 'Server error', error: err.message });
   }
 };
 
