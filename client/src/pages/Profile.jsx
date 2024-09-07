@@ -40,23 +40,23 @@ const Profile = () => {
     }
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      toast.error('New passwords do not match');
-      return;
-    }
-    try {
-      await changePassword({ currentPassword, newPassword });
-      toast.success('Password changed successfully');
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
-    } catch (error) {
-      console.error('Error changing password:', error);
-      toast.error(error.response?.data?.msg || 'Failed to change password');
-    }
-  };
+ const handleChangePassword = async (e) => {
+  e.preventDefault();
+  if (newPassword !== confirmPassword) {
+    toast.error('New passwords do not match');
+    return;
+  }
+  try {
+    await changePassword({ currentPassword, newPassword });
+    toast.success('Password changed successfully');
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  } catch (error) {
+    console.error('Error changing password:', error);
+    toast.error(error.response?.data?.msg || 'Failed to change password');
+  }
+};
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
