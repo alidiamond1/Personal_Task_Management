@@ -85,7 +85,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Ali Diamond**
 
-- Github: [@alidiamond1]((https://github.com/alidiamond1)
+- Github: [@alidiamond1](https://github.com/alidiamond1)
 - Linkedin: [www.linkedin.com](https://www.linkedin.com/alidiamond)
 - Twitter: [@alidiamond143](https://x.com/Alidiamond143)
 
